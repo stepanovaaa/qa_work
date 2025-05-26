@@ -1,6 +1,7 @@
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
@@ -10,20 +11,26 @@ public class TextBoxTests {
     @BeforeAll
     static void setup() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver137/chromedriver.exe");
-        Configuration.browser = "chrome";
-        Configuration.browserSize = "1920x1080";
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments(
+//                "--disable-dev-shm-usage",
+//                "--no-sandbox",
+                "--window-size=1920,1080",
+                "--remote-allow-origins=*"
+        );
         Configuration.baseUrl = "https://demoqa.com";
     }
 
     @Test
     void fillFormTest() {
         open("/text-box");
-        $("#userName").setValue("Oleg Mishin");
-        $("#userEmail").setValue("oleg2022@mishin.org");
-        $("#currentAddress").setValue("Adress 1");
-        $("#permanentAddress").setValue("Adress another2");
+        $("#userName").setValue("Alex Egorov");
+        $("#userEmail").setValue("alex@egorov.com");
+        $("#currentAddress").setValue("Some address 1");
+        $("#permanentAddress").setValue("Another address 1");
         $("#submit").click();
 
-        $("#output").shouldHave(text("Oleg Mishin"), text("oleg2022@mishin.org"), text("Adress 1"), text("Adress another2"));
+        $("#output").shouldHave(text("Alex Egorov"), text("alex@egorov.com"),
+                text("Some address 1"), text("Another address 1"));
     }
 }
