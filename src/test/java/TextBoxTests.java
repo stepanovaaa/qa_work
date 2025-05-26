@@ -13,8 +13,6 @@ public class TextBoxTests {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver137/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments(
-//                "--disable-dev-shm-usage",
-//                "--no-sandbox",
                 "--window-size=1920,1080",
                 "--remote-allow-origins=*"
         );
